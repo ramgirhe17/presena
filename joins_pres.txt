@@ -1,0 +1,166 @@
+
+ 
+CREATE SCHEMA IF NOT EXISTS  joins   ;
+USE  joins  ;
+
+-- -----------------------------------------------------
+-- Table    A
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS    A  (
+   A_ID  INT
+   )
+;
+-- -----------------------------------------------------
+-- Table    B
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS    B  (
+   B_ID  INT
+   )
+;
+
+Insert into A values (1),(2),(3),(4);
+Insert into B values (3),(4),(5),(6);
+
+-- -----------------------------------------------------
+-- Table    department 
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS    department  (
+   DepartmentID  INT NOT NULL AUTO_INCREMENT,
+   DepartmentName  VARCHAR(100) NOT NULL,
+  PRIMARY KEY ( DepartmentID ))
+;
+-- -----------------------------------------------------
+-- Table    employee 
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS    employee  (
+   EmployeeID  INT NOT NULL AUTO_INCREMENT,
+   FirstName  VARCHAR(100) NOT NULL,
+   LastName  VARCHAR(100) NOT NULL,
+   Email  VARCHAR(100) NOT NULL  UNIQUE,
+   Salary DECIMAL(10, 2) NOT NULL,
+   HireDate  DATE NULL DEFAULT NULL,
+   JobTitle  VARCHAR(100) NULL DEFAULT NULL,
+   DepartmentID  INT NOT NULL,
+   ManagerID  INT NULL DEFAULT NULL,
+  PRIMARY KEY ( EmployeeID )
+);
+-- -----------------------------------------------------
+-- Table    family_member 
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS    family_member  (
+   FamilyMemberID  INT NOT NULL AUTO_INCREMENT,
+   EmployeeID  INT NOT NULL,
+   Name  VARCHAR(100) NOT NULL,
+   Relationship  VARCHAR(100) NULL DEFAULT NULL,
+   Age  INT NULL DEFAULT NULL,
+  PRIMARY KEY ( FamilyMemberID )
+)
+;
+-- -----------------------------------------------------
+-- Table    passport 
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS    passport  (
+   PassportNumber  VARCHAR(255) NOT NULL ,
+   EmployeeID  INT NOT NULL,
+  PRIMARY KEY ( EmployeeID ),
+  UNIQUE ( PassportNumber )
+)
+;
+-- -----------------------------------------------------
+-- Table    PanCard 
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS    PanCard  (
+   employee_EmployeeID  INT NOT NULL,
+   pancard_Number  VARCHAR(45) NOT NULL UNIQUE,
+  PRIMARY KEY ( employee_EmployeeID )
+  )
+;
+
+
+-- Insert data into the  department  table
+INSERT INTO department (DepartmentID, DepartmentName) VALUES
+(1, 'Human Resources'),
+(2, 'Finance'),
+(3, 'Engineering'),
+(4, 'Marketing'),
+(5, 'IT'),
+(6, 'Accounting'),
+(7, 'Research and Development'),
+(8, 'Customer Service'),
+(9, 'Legal'),
+(10, 'Operations');
+
+
+-- Insert data into the  employee  table-- 
+
+INSERT INTO employee (EmployeeID, FirstName, LastName, Email, HireDate, JobTitle, DepartmentID, ManagerID, Salary) VALUES
+(1, 'Amit', 'Sharma', 'amit.sharma@example.com', '2020-01-15', 'Manager', 1, NULL, 75000.00),
+(2, 'Neha', 'Verma', 'neha.verma@example.com', '2019-03-22', 'Analyst', 2, 1, 60000.00),
+(3, 'Ravi', 'Kumar', 'ravi.kumar@example.com', '2018-07-30', 'Engineer', 3, 1, 70000.00),
+(4, 'Priya', 'Singh', 'priya.singh@example.com', '2021-05-12', 'Technician', 3, 3, 55000.00),
+(5, 'Raj', 'Patel', 'raj.patel@example.com', '2017-11-19', 'Sales Representative', 5, 1, 65000.00),
+(6, 'Sneha', 'Desai', 'sneha.desai@example.com', '2018-09-25', 'Manager', 4, NULL, 75000.00),
+(7, 'Arjun', 'Reddy', 'arjun.reddy@example.com', '2020-04-18', 'Marketer', 4, 6, 60000.00),
+(8, 'Kavita', 'Nair', 'kavita.nair@example.com', '2021-01-05', 'Engineer', 3, 3, 70000.00),
+(9, 'Manish', 'Gupta', 'manish.gupta@example.com', '2019-08-13', 'Analyst', 2, 1, 60000.00),
+(10, 'Pooja', 'Joshi', 'pooja.joshi@example.com', '2021-06-22', 'Sales Representative', 5, 5, 65000.00),
+(11, 'Ankit', 'Bansal', 'ankit.bansal@example.com', '2020-02-10', 'Developer', 3, 1, 72000.00),
+(12, 'Sanya', 'Malhotra', 'sanya.malhotra@example.com', '2019-11-05', 'HR Specialist', 1, 6, 58000.00),
+(13, 'Vikas', 'Chopra', 'vikas.chopra@example.com', '2018-03-15', 'Technician', 3, 4, 55000.00),
+(14, 'Kiran', 'Yadav', 'kiran.yadav@example.com', '2021-07-20', 'Accountant', 2, 9, 60000.00),
+(15, 'Meera', 'Kapoor', 'meera.kapoor@example.com', '2019-01-25', 'Marketing Executive', 4, 7, 62000.00),
+(16, 'Rohan', 'Mehta', 'rohan.mehta@example.com', '2020-08-12', 'Support Engineer', 3, 3, 68000.00),
+(17, 'Shweta', 'Iyer', 'shweta.iyer@example.com', '2021-04-01', 'Business Analyst', 2, 9, 61000.00),
+(18, 'Nikhil', 'Saxena', 'nikhil.saxena@example.com', '2019-12-09', 'Consultant', 4, 6, 69000.00),
+(19, 'Ruchi', 'Pandey', 'ruchi.pandey@example.com', '2020-11-17', 'Sales Executive', 5, 5, 64000.00),
+(20, 'Deepak', 'Agarwal', 'deepak.agarwal@example.com', '2018-10-23', 'Engineer', 3, 1, 71000.00);
+
+
+
+
+
+-- Insert data into the  family_member  table
+INSERT INTO    family_member  ( FamilyMemberID ,  EmployeeID ,  Name ,  Relationship ,  Age ) VALUES
+(1, 1, 'Sunita Sharma', 'Spouse', 30),
+(2, 1, 'Rahul Sharma', 'Child', 5),
+(3, 2, 'Anita Verma', 'Spouse', 28),
+(4, 2, 'Aarav Verma', 'Child', 3),
+(5, 3, 'Meera Kumar', 'Spouse', 27),
+(6, 3, 'Sanjay Kumar', 'Child', 4),
+(7, 4, 'Asha Singh', 'Spouse', 32),
+(8, 4, 'Rohan Singh', 'Child', 2),
+(9, 5, 'Nidhi Patel', 'Spouse', 29),
+(10, 5, 'Ishita Patel', 'Child', 1);
+
+
+
+-- Insert data into the  passport  table
+INSERT INTO    passport  (  PassportNumber ,  EmployeeID ) VALUES
+( 'A1234567', 1),
+('B2345678', 2),
+('C3456789', 3),
+('D4567890', 4),
+('E5678901', 5),
+('F6789012', 6),
+( 'G7890123', 7),
+( 'H8901234', 8),
+( 'I9012345', 9),
+( 'J0123456', 10);
+
+
+
+-- Insert data into the  PanCard  table
+INSERT INTO    PanCard  ( employee_EmployeeID ,  pancard_Number ) VALUES
+(1, 'PAN12345A'),
+(2, 'PAN23456B'),
+(3, 'PAN34567C'),
+(4, 'PAN45678D'),
+(5, 'PAN56789E'),
+(6, 'PAN67890F'),
+(7, 'PAN78901G'),
+(8, 'PAN89012H'),
+(9, 'PAN90123I'),
+(10, 'PAN01234J');
+
+
+
